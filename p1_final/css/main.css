@@ -1,0 +1,60 @@
+/* Enter your custom CSS here */
+body {
+	font-family:"Lucida Grande", sans-serif;
+	color:#666;
+	font-weight: 300;
+	font-size: 16px
+}
+
+p{
+	line-height: 200%;
+}
+
+h1{
+	font-size: 48px;
+	line-height: 45%;
+    padding-top: 38px;
+	padding-bottom: 14px;
+}
+
+h2{
+	font-size: 24px;
+	color: #f07c17;
+	font-weight: 600;
+	line-height: 150%;
+}
+
+li{
+	line-height: 200%;
+}
+
+.top-paragraph{
+	padding-top: 14px;
+}
+
+.body-paragraph{
+	padding-top: 1px;
+}
+
+.list-items{
+	padding-left: 39px;
+	padding-top: 14px;
+	padding-bottom: 30px;
+}
+
+.left-side-pad{
+	padding-right: 15px;
+}
+
+.img-pad{
+	padding-bottom: 30px;
+	padding-top: 24px;
+}
+
+.call-out{
+	padding-left: 30px;
+	padding-top: 6px;
+    border-style: solid; 
+    border-width: 1px;
+    border-color: #ccc;
+}
