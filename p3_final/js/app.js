@@ -3,24 +3,20 @@
 var globalScore = 0; //variable for scoring
 var COLLX = 160; //collision box width
 var COLLY = 85; // collision box height
-var ROWS = [70,150,235];// these specify the Y coord for 3 enemy rows
-var ROW1 = 70; // these specify the Y coord for 3 enemy rows
-var ROW2 = 150;
-var ROW3 = 235;
-var THREE_YS_MAN = [ROW1, ROW2, ROW3]; // array with 3 row variables (used when randomly generating enemy row)
+var threeYsMan = [70,150,235];// these specify the Y coord for 3 enemy threeYsMan
 var DIFFFACTOR = 20; //increase to make game more difficult (enemies move faster at start)
 var SPEEDLOWER = 100; //these two affect the range of variable enemy speed
 var SPEEDUPPER = 200;
 var STARTX = -100; //x value where enemies start
-var ENEMY_SPRITES = ['images/enemy-bug.png',
+var enemySprites = ['images/enemy-bug.png',
         'images/enemy-bug2.png',
         'images/enemy-bug3.png',
         'images/enemy-bug4.png']; //array with 4 enemy png file paths
-var GOALS = ['images/Star.png',
+var goals = ['images/Star.png',
         'images/Gem Green.png',
         'images/Gem Orange.png',
         'images/Gem Blue.png']; // array with 4 goal png image paths
-var GOALS_LOC = [0,100,200,300,400]; //columns where GOALS can appear (always in top row)
+var goalsLoc = [0,100,200,300,400]; //columns where goals can appear (always in top row)
 var HERO_START_X = 200; //hero start location and step size X/Y variables
 var HERO_START_Y= 402;
 var HERO_STEP_X= 100;
@@ -62,21 +58,21 @@ allSprites.prototype.render = function() {
 //Random selection of bug sprite: 
 // http://stackoverflow.com/questions/5915096/get-random-item-from-javascript-array
 function pickaBug(){
-    var bugNum = Math.floor(Math.random()*ENEMY_SPRITES.length);
-    return ENEMY_SPRITES[bugNum];
+    var bugNum = Math.floor(Math.random()*enemySprites.length);
+    return enemySprites[bugNum];
 }
 
 //Random selection of goal sprite: 
 // http://stackoverflow.com/questions/5915096/get-random-item-from-javascript-array
 function pickaGoal(){
-    var goalNum = Math.floor(Math.random()*GOALS.length);
-    return GOALS[goalNum];
+    var goalNum = Math.floor(Math.random()*goals.length);
+    return goals[goalNum];
 }
 
 //Randomly picks a spot for a goal on update
 function locateGoal(){
-    var locNum = Math.floor(Math.random()*GOALS_LOC.length);
-    return GOALS_LOC[locNum];
+    var locNum = Math.floor(Math.random()*goalsLoc.length);
+    return goalsLoc[locNum];
 }
 
 // Enemies our player must avoid
@@ -96,7 +92,7 @@ Enemy.prototype = Object.create(allSprites.prototype);
 
 // using the following resource for collision detection:
 // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-Enemy.prototype.yBegin = [ROW1,ROW2,ROW3];
+Enemy.prototype.yBegin = threeYsMan;
 Enemy.prototype.hitRect = {width: COLLX, height: COLLY};
 Enemy.prototype.constructor = Enemy;
 
@@ -133,8 +129,8 @@ Enemy.prototype.update = function(dt) {
 //source for newY funct: 
 // http://stackoverflow.com/questions/5915096/get-random-item-from-javascript-array
 function newY(){
-    var num = Math.floor(Math.random()*THREE_YS_MAN.length);
-    var num2 = THREE_YS_MAN[num];
+    var num = Math.floor(Math.random()*threeYsMan.length);
+    var num2 = threeYsMan[num];
     return num2;
 }
 
@@ -142,8 +138,8 @@ function newY(){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-for (i = 0; i < ROWS.length; i++) {
-    allEnemies[i] = new Enemy(pickaBug(), STARTX,ROWS[i]);
+for (i = 0; i < threeYsMan.length; i++) {
+    allEnemies[i] = new Enemy(pickaBug(), STARTX,threeYsMan[i]);
 }
 
 // Now write your own player class
@@ -232,7 +228,7 @@ PlayerClass.prototype.reset = function(){
 var goalClass = function(){
     if (typeof this.sprite === 'undefined') { this.sprite = pickaGoal(); }
     this.x = locateGoal();
-    this.y = ROW1;
+    this.y = threeYsMan[1];
     allSprites.call(this, this.sprite, this.x, this.y); //render the sprite (superclass)
 };
 
@@ -242,7 +238,7 @@ goalClass.prototype.x = locateGoal();
 goalClass.prototype.constructor = goalClass;
 goalClass.prototype.reset = function(){
     this.x = locateGoal();
-    this.y = ROW1;
+    this.y = threeYsMan[1];
 };
 goalClass.prototype.update = function(dt) {
   // handle collisions with player
